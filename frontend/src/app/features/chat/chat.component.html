@@ -1,0 +1,113 @@
+<!-- <div class="chat-container">
+    <h2>Chat Room: {{ room }}</h2>
+    <div class="chat-box">
+      <div *ngFor="let msg of messages">
+        <p>{{ msg.text }}</p>
+      </div>
+    </div>
+  
+    <input
+      type="text"
+      [(ngModel)]="message"
+      placeholder="Type a message..."
+      (keyup.enter)="sendMessage()"
+    />
+    <button (click)="sendMessage()">Send</button>
+  </div>
+   -->
+
+   <!-- Floating Chat Icon -->
+
+
+
+<!-- <div class="chat-icon" (click)="toggleChat()">
+    💬
+  </div>
+  
+  <div class="chat-container" *ngIf="chatOpen">
+    <div class="chat-header">
+      <h3>Chat Room: {{ room }}</h3>
+      <button class="close-btn" (click)="toggleChat()">✖</button>
+    </div>
+  
+    <div class="chat-box">
+      <div *ngFor="let msg of messages" class="chat-message">
+        <span class="sender">{{ msg.sender }}:</span> {{ msg.text }}
+      </div>
+    </div>
+  
+    <div class="chat-input">
+      <input
+        type="text"
+        [(ngModel)]="message"
+        placeholder="Type a message..."
+        (keyup.enter)="sendMessage()"
+      />
+      <button (click)="sendMessage()">➤</button>
+    </div>
+  </div>
+   -->
+
+<!-- <div class="chat-icon" (click)="toggleChat()">💬</div>
+
+
+<div class="chat-container" *ngIf="chatOpen">
+  <div class="chat-header">
+    <h3>Chat Room</h3>
+    <button class="close-btn" (click)="toggleChat()">✖</button>
+  </div>
+
+  <div class="room-selection">
+    <label>Select Room:</label>
+    <select [(ngModel)]="room" (change)="changeRoom()">
+      <option *ngFor="let r of availableRooms" [value]="r">{{ r }}</option>
+    </select>
+    <input type="text" [(ngModel)]="newRoom" placeholder="Or create new room..." />
+    <button (click)="createRoom()">➕</button>
+  </div>
+
+  <div class="chat-box">
+    <div *ngFor="let msg of messages" class="chat-message">
+      <span class="sender">{{ msg.sender }}:</span> {{ msg.text }}
+    </div>
+  </div>
+
+  <div class="chat-input">
+    <input type="text" [(ngModel)]="message" placeholder="Type a message..." (keyup.enter)="sendMessage()" />
+    <button (click)="sendMessage()">➤</button>
+  </div>
+</div> -->
+
+<!-- Floating Chat Icon -->
+<div class="chat-icon" (click)="toggleChat()">💬</div>
+
+<!-- Chat Window -->
+<div class="chat-container" *ngIf="chatOpen">
+  <div class="chat-header">
+    <h3>Chat Room: {{ room }}</h3>
+    <button class="close-btn" (click)="toggleChat()">✖</button>
+  </div>
+
+  <!-- Room Selection -->
+  <div class="room-selection">
+    <label for="room">Select Room:</label>
+    <select [(ngModel)]="room" (change)="joinRoom(room)">
+      <option *ngFor="let room of availableRooms" [value]="room">{{ room }}</option>
+    </select>
+    <button (click)="createRoom()">Create New Room</button>
+    <input [(ngModel)]="newRoom" placeholder="New room name" />
+  </div>
+
+  <!-- Chat Messages -->
+  <div class="chat-box">
+    <div *ngFor="let msg of messages" class="chat-message">
+      <span class="sender">{{ msg.sender }}:</span> {{ msg.text }}
+    </div>
+  </div>
+
+  <!-- Message Input -->
+  <div class="chat-input">
+    <input type="text" [(ngModel)]="message" placeholder="Type a message..." (keyup.enter)="sendMessage()" />
+    <button (click)="sendMessage()">➤</button>
+  </div>
+</div>

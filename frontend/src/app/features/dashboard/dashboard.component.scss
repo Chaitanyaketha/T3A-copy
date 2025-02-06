@@ -1,0 +1,38 @@
+.container {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+
+  .main-content {
+    margin-top: 20px;
+
+    .content-row {
+      display: flex;
+      align-items: flex-start;
+      /* Align items at the top */
+      justify-content: space-between;
+      /* Add space between items */
+
+      .pagination {
+        flex: 7;
+        /* 70% width */
+        margin-right: 20px;
+        /* Add some spacing between the sections */
+      }
+
+      .file-upload {
+        flex: 3;
+        /* 30% width */
+      }
+    }
+  }
+}
+
+pp-navbar {
+  margin-bottom: 20px;
+  /* Adjust the gap between navbar and content */
+}
+
+app-pagination {
+  margin-top: 20px;
+  /* Adjust the gap between content and pagination */
+}

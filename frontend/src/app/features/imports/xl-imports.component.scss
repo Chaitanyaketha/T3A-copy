@@ -1,0 +1,130 @@
+// .container {
+//     max-width: 900px;
+//     margin: 2rem auto;
+//     padding: 1.5rem;
+//     background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+//     border-radius: 15px;
+//     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+// }
+
+// h2 {
+//     color: #1a1a2e;
+//     font-weight: bold;
+//     margin-bottom: 1rem;
+//     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+// }
+// table {
+//     width: 100%;
+//   }
+  
+//   th, td {
+//     text-align: center;
+//     padding: 15px;
+//   }
+  
+//   th {
+//     width: 15%; /* You can adjust the percentage based on your needs */
+//   }
+  
+//   td {
+//     width: 15%; /* Adjust accordingly to make each column wider */
+//   }
+  
+//   th:nth-child(5), td:nth-child(5) {
+//     width: 20%; /* Increase width for Valid Records column */
+//   }
+  
+//   th:nth-child(6), td:nth-child(6) {
+//     width: 20%; /* Increase width for Invalid Records column */
+//   }
+  
+//   th:nth-child(4), td:nth-child(4) {
+//     width: 20%; /* Adjust for Invalid File column */
+//   }
+  
+
+// .table {
+//     background: #ffffff;
+//     border-radius: 10px;
+//     overflow: hidden;
+//     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+//     transition: transform 0.3s ease;
+
+//     &:hover {
+//         transform: scale(1.02);
+//     }
+
+//     th {
+//         background: #1a73e8;
+//         color: #ffffff;
+//         text-align: center;
+//     }
+
+//     tr:nth-child(even) {
+//         background-color: #f4f9ff;
+//     }
+
+//     td {
+//         vertical-align: middle;
+//         text-align: center;
+//         padding: 0.75rem;
+//     }
+// }
+
+// .btn-primary {
+//     background-color: #4a90e2;
+//     border: none;
+//     transition: background 0.3s ease;
+//     border-radius: 20px;
+
+//     &:hover {
+//         background-color: #357ab8;
+//     }
+// }
+
+// .btn-danger {
+//     background-color: #ff6b6b;
+//     border: none;
+//     transition: background 0.3s ease;
+//     border-radius: 20px;
+
+//     &:hover {
+//         background-color: #e63946;
+//     }
+// }
+
+// .badge {
+//     padding: 0.5rem 1rem;
+//     border-radius: 15px;
+//     font-weight: 600;
+//     font-size: 0.9rem;
+
+//     &.bg-success {
+//         background-color: #34d399;
+//         color: #fff;
+//     }
+
+//     &.bg-warning {
+//         background-color: #fbbf24;
+//         color: #1f2937;
+//     }
+// }
+
+// .text-muted {
+//     color: #9ca3af;
+// }
+
+// @media (max-width: 576px) {
+//     .container {
+//         padding: 1rem;
+//     }
+
+//     .btn {
+//         padding: 0.4rem 0.8rem;
+//         font-size: 0.85rem;
+//     }
+
+//     .badge {
+//         font-size: 0.8rem;
+//     }
+// }

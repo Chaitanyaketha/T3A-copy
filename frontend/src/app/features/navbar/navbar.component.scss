@@ -1,0 +1,249 @@
+// // Color Variables
+// $primary-color: #f9fafa; // Warm Coral Red
+// $secondary-color: #f4f6f9; // Soft Green
+// $tertiary-color: #ffcc00; // Vibrant Yellow
+// $background-color: #f7f8f9; // Light Background Color
+// $card-bg-color: #ffffff; // White for cards and modals
+// $modal-header-color: #222222; // Dark modal header
+// $border-radius: 8px;
+// $box-shadow-light: 0 4px 20px rgba(0, 0, 0, 0.1);
+// $transition-duration: 0.3s;
+
+// // Global Styles
+// body {
+//   font-family: 'Poppins', sans-serif;
+//   background-color: $background-color;
+//   margin: 0;
+//   padding: 0;
+// }
+
+// .container {
+//   max-width: 100%;
+//   /* Container should span the full width */
+//   padding: 0;
+//   margin: 0;
+// }
+
+// // Navbar Styles
+// .navbar {
+//   background: linear-gradient(135deg, $primary-color, $secondary-color);
+//   padding: 10px 0;
+//   /* Make padding on top and bottom for better visual appearance */
+//   border-radius: 0;
+//   /* Remove border-radius to make the navbar full-width */
+//   width: 100%;
+//   /* Make navbar span across the entire width of the page */
+//   position: relative;
+//   z-index: 10;
+//   /* Keep navbar above other content */
+
+//   .container-fluid {
+//     width: 100%;
+//     /* Ensure container-fluid spans the full width */
+//     padding: 0 20px;
+//     /* Add some padding inside the navbar for spacing */
+//   }
+
+//   .navbar-brand {
+//     color: #131212;
+//     font-size: 26px;
+//     font-weight: 600;
+//     letter-spacing: 2px;
+//     text-transform: uppercase;
+//     text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+//     transition: color $transition-duration ease;
+
+//     &:hover {
+//       color: $tertiary-color;
+//     }
+//   }
+
+//   .nav-link {
+//     color: #fff;
+//     font-size: 16px;
+//     padding: 12px 18px;
+//     border-radius: $border-radius;
+//     transition: background-color $transition-duration ease, color $transition-duration ease;
+
+//     &:hover {
+//       background-color: $tertiary-color;
+//       color: #fff;
+//     }
+//   }
+
+//   .dropdown-toggle {
+//     display: flex;
+//     align-items: center;
+//     color: rgb(10, 11, 10);
+//     font-size: 16px;
+//     border-radius: $border-radius;
+//     padding: 10px;
+//     transition: background-color $transition-duration ease;
+
+//     &:hover {
+//       background-color: $tertiary-color;
+//     }
+
+//     img {
+//       width: 35px;
+//       height: 35px;
+//       margin-right: 10px;
+//       border-radius: 50%;
+//     }
+
+//     .fa-chevron-down {
+//       margin-left: 5px;
+//       font-size: 14px;
+//     }
+//   }
+
+//   .dropdown-menu {
+//     background-color: $secondary-color;
+//     border-radius: 10px;
+//     padding: 10px;
+
+//     .dropdown-item {
+//       color: rgb(60, 206, 62);
+//       font-size: 14px;
+//       padding: 12px 20px;
+//       border-radius: $border-radius;
+//       transition: background-color $transition-duration ease;
+
+//       &:hover {
+//         background-color: $tertiary-color;
+//         color: #fff;
+//       }
+//     }
+//   }
+// }
+
+// // Modal Styling
+// .modal-content {
+//   background-color: $card-bg-color;
+//   border-radius: $border-radius;
+//   box-shadow: $box-shadow-light;
+// }
+
+// .modal-header {
+//   background-color: $modal-header-color;
+//   color: white;
+//   padding: 20px;
+//   border-top-left-radius: $border-radius;
+//   border-top-right-radius: $border-radius;
+
+//   .btn-close {
+//     background-color: transparent;
+//     border: none;
+//     color: white;
+//     font-size: 20px;
+//     opacity: 0.8;
+//     transition: opacity 0.2s;
+
+//     &:hover {
+//       opacity: 1;
+//     }
+//   }
+// }
+
+// .modal-body {
+//   padding: 20px;
+
+//   form {
+//     .form-label {
+//       font-size: 16px;
+//       font-weight: 600;
+//       color: $primary-color;
+//       margin-bottom: 10px;
+//     }
+
+//     .form-control {
+//       border-radius: 10px;
+//       border: 1px solid #ddd;
+//       padding: 15px;
+//       margin-bottom: 20px;
+//       font-size: 14px;
+//       transition: border-color 0.3s ease;
+
+//       &:focus {
+//         border-color: $primary-color;
+//         box-shadow: 0 0 5px rgba(255, 111, 97, 0.3);
+//       }
+//     }
+
+//     button {
+//       background-color: $primary-color;
+//       color: white;
+//       padding: 14px;
+//       border-radius: $border-radius;
+//       font-size: 16px;
+//       width: 100%;
+//       transition: background-color 0.3s ease;
+
+//       &:hover {
+//         background-color: $tertiary-color;
+//         cursor: pointer;
+//       }
+//     }
+//   }
+// }
+
+/* Navbar styles */
+.navbar {
+  padding: 1rem 1.5rem; /* Adjust vertical and horizontal padding */
+}
+
+.navbar-brand {
+  font-size: 1.5rem; /* Larger font for the brand */
+  font-weight: bold;
+}
+
+.dropdown {
+  margin-left: auto; /* Align dropdown to the right */
+}
+
+/* Dropdown styles */
+.nav-link {
+  display: flex;
+  align-items: center; /* Align items vertically */
+}
+
+.nav-link img {
+  width: 40px; /* Set a fixed width for profile picture */
+  height: 40px; /* Set a fixed height for profile picture */
+  object-fit: cover; /* Maintain aspect ratio */
+}
+
+.dropdown-menu {
+  min-width: 150px; /* Ensure dropdown menu has a minimum width */
+}
+
+/* Modal styles */
+.modal-header {
+  border-bottom: none; /* Remove bottom border */
+}
+
+.modal-title {
+  font-weight: 600; /* Make the title bold */
+}
+
+/* Modal body styles */
+.modal-body {
+  padding: 1.5rem; /* Add padding to modal content */
+}
+
+.form-label {
+  font-weight: 500; /* Bold label text for better visibility */
+}
+
+.btn-close {
+  margin-left: auto; /* Push close button to the right */
+}
+
+/* Form styles */
+input[type="file"] {
+  padding: 0.375rem; /* Adjust input padding */
+}
+
+.btn-primary {
+  margin-top: 1rem; /* Space out the button from the input */
+}

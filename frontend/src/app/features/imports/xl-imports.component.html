@@ -1,0 +1,113 @@
+
+
+   <!-- <div class="container mt-5">
+    <h2 class="text-center mb-5 text-primary">Imports File History</h2>
+    <div class="table-responsive shadow-lg rounded-lg bg-light p-3">
+      <table class="table table-striped table-bordered table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>File Name</th>
+            <th>File</th>
+            <th>invalid file</th>
+            <th>Valid Records</th> 
+            <th>Invalid Records</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let record of imports">
+            <td>{{ record.id }}</td>
+            <td>{{ record.file_name }}</td>
+            <td>
+              <a [href]="record.file_path" target="_blank" class="btn btn-outline-primary btn-sm">
+                <i class="bi bi-download"></i> Download File
+              </a>
+            </td>
+            <td>
+              <ng-container *ngIf="record.wrong_path; else noInvalidRecords">
+                <a [href]="record.wrong_path" target="_blank" class="btn btn-outline-danger btn-sm">
+                  <i class="bi bi-exclamation-triangle"></i> Download Invalid Records
+                </a>
+              </ng-container>
+              <ng-template #noInvalidRecords>
+                <p class="text-muted">No Invalid Records</p>
+              </ng-template>
+            </td>
+            <td>
+              <h1>{{record.valid_records}}</h1>    
+            </td>
+            <td>
+              <h1>{{record.invalid_records}}</h1>
+            </td>
+            <td>
+              <span [ngClass]="{
+                  'badge bg-warning': record.status === 0,
+                  'badge bg-success': record.status === 1
+                }">
+                {{ record.status === 1 ? 'Completed' : 'Pending' }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+   -->
+
+
+   <div class="container mt-5">
+    <h2 class="text-center mb-5 text-primary">Imports File History</h2>
+    <div class="table-responsive shadow-lg rounded bg-light p-3">
+      <table class="table table-striped table-bordered table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>File Name</th>
+            <th>File</th>
+            <th>Invalid File</th>
+            <th>Valid Records</th>
+            <th>Invalid Records</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let record of imports">
+            <td>{{ record.id }}</td>
+            <td>{{ record.file_name }}</td>
+            <td>
+              <a [href]="record.file_path" target="_blank" class="btn btn-outline-primary btn-sm d-flex align-items-center">
+                <i class="bi bi-download me-1"></i> Download File
+              </a>
+            </td>
+            <td>
+              <ng-container *ngIf="record.wrong_path; else noInvalidRecords">
+                <a [href]="record.wrong_path" target="_blank" class="btn btn-outline-danger btn-sm d-flex align-items-center">
+                  <i class="bi bi-exclamation-triangle me-1"></i> Download Invalid Records
+                </a>
+              </ng-container>
+              <ng-template #noInvalidRecords>
+                <span class="text-muted">No Invalid Records</span>
+              </ng-template>
+            </td>
+            <td>
+              <span class="badge bg-primary p-2">{{ record.valid_records }}</span>
+            </td>
+            <td>
+              <span class="badge bg-danger p-2">{{ record.invalid_records }}</span>
+            </td>
+            <td>
+              <span class="badge p-2"
+                [ngClass]="{
+                  'bg-warning': record.status === 0,
+                  'bg-success': record.status === 1
+                }">
+                {{ record.status === 1 ? 'Completed' : 'Pending' }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
