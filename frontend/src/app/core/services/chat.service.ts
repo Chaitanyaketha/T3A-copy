@@ -1,3 +1,5 @@
+
+
 // import { Injectable } from '@angular/core';
 // import { io, Socket } from 'socket.io-client';
 // import { Observable } from 'rxjs';
@@ -9,16 +11,17 @@
 // })
 // export class ChatService {
 //   private socket: Socket;
-//   private apiUrl = `${environment.apiUrl}/api/v1/user/getData`;
+//   private apiUrl = `${environment.apiUrl}/api/v1/user/getData`; // URL for user data
+
 //   constructor(private http: HttpClient) {
 //     this.socket = io('http://localhost:4000'); // Replace with your backend URL
-
 //   }
+
+//   // Get user details (e.g., username)
 //   getUserById(): Observable<any> {
 //     return this.http.get(`${this.apiUrl}`);
 //   }
 
-  
 //   // Join Room
 //   joinRoom(username: string, room: string) {
 //     this.socket.emit('joinRoom', { username, room });
@@ -39,10 +42,10 @@
 //     this.socket.emit('groupMessage', { room, sender, message });
 //   }
 
-//   // Listen for Messages
-//   onMessage(): Observable<any> {
+//   // Listen for Group Messages
+//   onGroupMessage(): Observable<any> {
 //     return new Observable((observer) => {
-//       this.socket.on('message', (data) => {
+//       this.socket.on('groupMessage', (data) => {
 //         observer.next(data);
 //       });
 //     });
@@ -57,10 +60,10 @@
 //     });
 //   }
 
-//   // Listen for Group Messages
-//   onGroupMessage(): Observable<any> {
+//   // Listen for General Messages
+//   onMessage(): Observable<any> {
 //     return new Observable((observer) => {
-//       this.socket.on('groupMessage', (data) => {
+//       this.socket.on('message', (data) => {
 //         observer.next(data);
 //       });
 //     });
@@ -71,6 +74,8 @@
 //     this.socket.disconnect();
 //   }
 // }
+
+
 
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
@@ -83,38 +88,32 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ChatService {
   private socket: Socket;
-  private apiUrl = `${environment.apiUrl}/api/v1/user/getData`; // URL for user data
+  private apiUrl = `${environment.apiUrl}/api/v1/user/getData`;
 
   constructor(private http: HttpClient) {
-    this.socket = io('http://localhost:4000'); // Replace with your backend URL
+    this.socket = io('http://localhost:4000'); // Update with your backend URL
   }
 
-  // Get user details (e.g., username)
   getUserById(): Observable<any> {
     return this.http.get(`${this.apiUrl}`);
   }
 
-  // Join Room
   joinRoom(username: string, room: string) {
     this.socket.emit('joinRoom', { username, room });
   }
 
-  // Leave Room
   leaveRoom(username: string, room: string) {
     this.socket.emit('leaveRoom', { username, room });
   }
 
-  // Send Private Message
   sendPrivateMessage(receiver: string, sender: string, message: string) {
     this.socket.emit('privateMessage', { sender, receiver, message });
   }
 
-  // Send Group Message
   sendGroupMessage(room: string, sender: string, message: string) {
     this.socket.emit('groupMessage', { room, sender, message });
   }
 
-  // Listen for Group Messages
   onGroupMessage(): Observable<any> {
     return new Observable((observer) => {
       this.socket.on('groupMessage', (data) => {
@@ -123,7 +122,6 @@ export class ChatService {
     });
   }
 
-  // Listen for Private Messages
   onPrivateMessage(): Observable<any> {
     return new Observable((observer) => {
       this.socket.on('privateMessage', (data) => {
@@ -132,7 +130,6 @@ export class ChatService {
     });
   }
 
-  // Listen for General Messages
   onMessage(): Observable<any> {
     return new Observable((observer) => {
       this.socket.on('message', (data) => {
@@ -141,7 +138,14 @@ export class ChatService {
     });
   }
 
-  // Disconnect Socket
+  getActiveUsers(): Observable<string[]> {
+    return new Observable((observer) => {
+      this.socket.on('activeUsers', (users) => {
+        observer.next(users);
+      });
+    });
+  }
+
   disconnect() {
     this.socket.disconnect();
   }
