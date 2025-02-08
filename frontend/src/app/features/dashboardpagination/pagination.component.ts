@@ -37,7 +37,7 @@ export class PaginationComponent implements OnInit {
   categories:any=[];
   vendors:any=[];
   currentPage: number = 1; 
-  itemsPerPage: number = 5; 
+  itemsPerPage: number = 10; 
   totalItems: number = 0; 
   totalPages: number = 0; 
   viewMode: 'viewAll' | 'cart' = 'viewAll'; 

@@ -7,7 +7,7 @@
 
 /**
  * @swagger
- * /getProducts:
+ * /api/v1/user/getProducts:
  *   get:
  *     summary: Get all products
  *     tags: [Products]
@@ -18,7 +18,7 @@
 
 /**
  * @swagger
- * /editProduct/{productId}:
+ * /api/v1/user/editProduct/{productId}:
  *   put:
  *     summary: Edit a product
  *     tags: [Products]
@@ -35,7 +35,7 @@
 
 /**
  * @swagger
- * /deleteProduct/{productId}:
+ * /api/v1/user/deleteProduct/{productId}:
  *   delete:
  *     summary: Delete a product
  *     tags: [Products]
@@ -52,7 +52,7 @@
 
 /**
  * @swagger
- * /getCategories:
+ * /api/v1/user/getCategories:
  *   get:
  *     summary: Get product categories
  *     tags: [Products]
@@ -63,7 +63,7 @@
 
 /**
  * @swagger
- * /getVendors:
+ * /api/v1/user/getVendors:
  *   get:
  *     summary: Get vendors list
  *     tags: [Products]
@@ -74,7 +74,7 @@
 
 /**
  * @swagger
- * /addProduct:
+ * /api/v1/user/addProduct:
  *   post:
  *     summary: Add a new product
  *     tags: [Products]
@@ -85,7 +85,7 @@
 
 /**
  * @swagger
- * /cart/addItems:
+ * /api/v1/user/cart/addItems:
  *   post:
  *     summary: Add items to cart
  *     tags: [Cart]
@@ -96,7 +96,7 @@
 
 /**
  * @swagger
- * /cart/items:
+ * /api/v1/user/cart/items:
  *   get:
  *     summary: Get cart items
  *     tags: [Cart]
@@ -107,7 +107,7 @@
 
 /**
  * @swagger
- * /cart/decreaseQuantity:
+ * /api/v1/user/cart/decreaseQuantity:
  *   post:
  *     summary: Decrease item quantity in cart
  *     tags: [Cart]
@@ -118,7 +118,7 @@
 
 /**
  * @swagger
- * /cart/increaseQuantity:
+ * /api/v1/user/cart/increaseQuantity:
  *   post:
  *     summary: Increase item quantity in cart
  *     tags: [Cart]
@@ -129,7 +129,7 @@
 
 /**
  * @swagger
- * /cart/remove/{Cart_ID}:
+ * /api/v1/user/cart/remove/{Cart_ID}:
  *   delete:
  *     summary: Remove item from cart
  *     tags: [Cart]

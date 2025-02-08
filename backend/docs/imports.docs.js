@@ -7,7 +7,7 @@
 
 /**
  * @swagger
- * /add:
+ * /api/v1/user/imports/add:
  *   post:
  *     summary: Import product data
  *     tags: [Imports]
@@ -20,7 +20,7 @@
 
 /**
  * @swagger
- * /get-imports:
+ * /api/v1/user/imports/get-imports:
  *   get:
  *     summary: Get imported data
  *     tags: [Imports]

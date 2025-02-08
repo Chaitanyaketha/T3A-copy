@@ -5,7 +5,7 @@ const { productSchema } = require('./pagination.utils');
 
 const db = knex(knexConfig.development);
 
-exports.getAllProducts = async (page = 1, offset = 5, searchText = '', selectedFilters = {}) => {
+exports.getAllProducts = async (page = 1, offset = 10, searchText = '', selectedFilters = {}) => {
   try {
     const limit = offset;
     const offsetValue = (page - 1) * offset;

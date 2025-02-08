@@ -7,7 +7,7 @@
 
 /**
  * @swagger
- * /history:
+ * /api/v1/chat/history:
  *   get:
  *     summary: Get chat history
  *     tags: [Chat]

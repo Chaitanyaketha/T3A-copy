@@ -7,7 +7,7 @@
 
 /**
  * @swagger
- * /get-presigned-url:
+ * /api/v1/user/files/get-presigned-url:
  *   get:
  *     summary: Get a presigned URL for file upload
  *     tags: [File Uploads]
@@ -18,7 +18,7 @@
 
 /**
  * @swagger
- * /get-presigned-urls-for-get:
+ * /api/v1/user/files/get-presigned-urls-for-get:
  *   get:
  *     summary: Get presigned URLs for downloading files
  *     tags: [File Uploads]
@@ -29,7 +29,7 @@
 
 /**
  * @swagger
- * /files:
+ * /api/v1/user/files/files:
  *   get:
  *     summary: List all uploaded files
  *     tags: [File Uploads]

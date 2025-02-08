@@ -7,7 +7,7 @@
 
 /**
  * @swagger
- * /request-password-reset:
+ * /api/v1/password-reset/request-password-reset:
  *   post:
  *     summary: Request a password reset link
  *     tags: [Password Reset]
@@ -30,7 +30,7 @@
 
 /**
  * @swagger
- * /reset-password:
+ * /api/v1/password-reset/reset-password:
  *   post:
  *     summary: Reset user password
  *     tags: [Password Reset]

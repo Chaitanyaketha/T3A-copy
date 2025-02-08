@@ -48,6 +48,9 @@ const loginUser = async (identifier, password) => {
     };
   } catch (error) {
     logger.error(`Error logging in user ${identifier}: ${error.message}`);
+    console.log("Invalid Credentials");
+    // window.alert("Invalid Credentials");
+    logger.warn(`Login attempt failed for user: ${identifier}. Invalid credentials.`);
     throw new Error(error.message);
   }
 };

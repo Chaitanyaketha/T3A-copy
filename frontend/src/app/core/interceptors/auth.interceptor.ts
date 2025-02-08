@@ -104,7 +104,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   constructor(private http: HttpClient) {}
 
-  private tokenEndpoint = 'http://localhost:3000/token';
+  private tokenEndpoint = 'http://localhost:4000/token';
 
   refreshAccessToken(refreshToken: string): Observable<{ accessToken: string }> {
     return this.http.post<{ accessToken: string }>(this.tokenEndpoint, {

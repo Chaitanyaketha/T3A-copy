@@ -7,7 +7,7 @@
 
 /**
  * @swagger
- * /register:
+ * /api/v1/user/register:
  *   post:
  *     summary: Register a new user
  *     tags: [Registration]

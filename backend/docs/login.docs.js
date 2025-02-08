@@ -7,7 +7,7 @@
 
 /**
  * @swagger
- * /login:
+ * /api/v1/user/login:
  *   post:
  *     summary: User login
  *     tags: [Authentication]
@@ -18,7 +18,7 @@
  *           schema:
  *             type: object
  *             properties:
- *               email:
+ *               identifier:
  *                 type: string
  *                 example: "user@example.com"
  *               password:
