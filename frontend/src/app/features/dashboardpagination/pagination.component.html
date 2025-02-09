@@ -1,4 +1,7 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+  rel="stylesheet"
+/>
 
 <div class="inventory-container">
   <div class="header-row">
@@ -10,7 +13,10 @@
       <button class="btn btn-outline-primary" (click)="downloadSelectedItems()">
         <i class="bi bi-download"></i> Download All
       </button>
-      <button class="btn btn-outline-primary position-relative">
+      <button
+        class="btn btn-outline-primary position-relative"
+        *ngIf="userRole === 'admin'"
+      >
         <i class="bi bi-upload"></i> Import
         <input
           type="file"
@@ -18,7 +24,11 @@
           class="file-input"
         />
       </button>
-      <button class="btn btn-primary" (click)="openAddProductModal()">
+      <button
+        class="btn btn-primary"
+        (click)="openAddProductModal()"
+        *ngIf="userRole === 'admin' || userRole === 'manager'"
+      >
         <i class="bi bi-plus-lg"></i> Add Product
       </button>
     </div>
@@ -27,24 +37,34 @@
   <!-- Controls Row -->
   <div class="controls-row">
     <div class="view-controls">
-      <button 
-        class="btn" 
-        [ngClass]="{'btn-primary': viewMode === 'viewAll', 'btn-outline-primary': viewMode !== 'viewAll'}"
+      <button
+        class="btn"
+        [ngClass]="{
+          'btn-primary': viewMode === 'viewAll',
+          'btn-outline-primary': viewMode !== 'viewAll'
+        }"
         (click)="changeViewMode('viewAll')"
-      ><i class="bi bi-list-ul"></i>
+      >
+        <i class="bi bi-list-ul"></i>
         View All
       </button>
-      <button 
-        class="btn" 
-        [ngClass]="{'btn-primary': viewMode === 'cart', 'btn-outline-primary': viewMode !== 'cart'}"
+      <button
+        class="btn"
+        [ngClass]="{
+          'btn-primary': viewMode === 'cart',
+          'btn-outline-primary': viewMode !== 'cart'
+        }"
         (click)="changeViewMode('cart')"
-      ><i class="bi bi-cart"></i>
+      >
+        <i class="bi bi-cart"></i>
         Cart
       </button>
     </div>
-    <button [routerLink]="['/dashboard/imports']" class="btn btn-primary">
-       Imported File Status <i class=""></i>
-    </button>
+    <div *ngIf="userRole === 'admin'">
+      <button [routerLink]="['/dashboard/imports']" class="btn btn-primary">
+        Imported File Status <i class=""></i>
+      </button>
+    </div>
 
     <!-- <div class="container">
      
@@ -56,32 +76,50 @@
         <app-xl-imports></app-xl-imports>
       </div>
     </div> -->
-    
+
     <div class="search-filter">
       <i class="bi bi-search"></i>
-      <input type="text"  placeholder="Search"  [(ngModel)]="searchText" (ngModelChange)="handleModelChangess()" />
+      <input
+        type="text"
+        placeholder="Search"
+        [(ngModel)]="searchText"
+        (ngModelChange)="handleModelChangess()"
+      />
 
       <div class="dropdown">
-        <button class="btn" (click)="toggleDropdown()"> <i class="bi bi-filter"></i>Filter</button>
+        <button class="btn" (click)="toggleDropdown()">
+          <i class="bi bi-filter"></i>Filter
+        </button>
         <ul class="dropdown-menu" *ngIf="isDropdownOpen">
           <li>
             <label>
-              <input type="checkbox" (change)="onCheckboxChange('category_name', $event)" /> Category
+              <input
+                type="checkbox"
+                (change)="onCheckboxChange('category_name', $event)"
+              />
+              Category
             </label>
           </li>
           <li>
             <label>
-              <input type="checkbox" (change)="onCheckboxChange('vendor_name', $event)" /> Vendors
+              <input
+                type="checkbox"
+                (change)="onCheckboxChange('vendor_name', $event)"
+              />
+              Vendors
             </label>
           </li>
           <li>
             <label>
-              <input type="checkbox" (change)="onCheckboxChange('product_name', $event)" /> Product Name
+              <input
+                type="checkbox"
+                (change)="onCheckboxChange('product_name', $event)"
+              />
+              Product Name
             </label>
           </li>
         </ul>
       </div>
-      
     </div>
   </div>
 
@@ -113,9 +151,9 @@
                 [src]="item.product_image || 'assets/images.jpg'"
                 alt="Product Image"
                 class="product-icon"
-                style="width: 50px; height: 50px;"
+                style="width: 50px; height: 50px"
               />
-            
+
               <!-- File input for image upload when editing -->
               <div *ngIf="item.isEditing">
                 <input
@@ -129,64 +167,124 @@
                   [src]="item.previewImage"
                   alt="Preview"
                   class="img-thumbnail"
-                  style="width: 50px; height: 50px; margin-top: 10px;"
+                  style="width: 50px; height: 50px; margin-top: 10px"
                 />
               </div>
             </td>
-           
-            
-            <td *ngIf="!item.isEditing">{{ item.product_name | capitalize }}</td>
+
+            <td *ngIf="!item.isEditing">
+              {{ item.product_name | capitalize }}
+            </td>
             <td *ngIf="item.isEditing">
-              <input class="form-control form-control-sm" [(ngModel)]="item.editedProductName" placeholder="Enter product name" />
+              <input
+                class="form-control form-control-sm"
+                [(ngModel)]="item.editedProductName"
+                placeholder="Enter product name"
+              />
             </td>
             <td *ngIf="!item.isEditing">
-              <span [ngClass]="{'badge bg-success': item.status === '1', 'badge bg-danger': item.status === '0'}">
-                {{ item.status === '1' ? 'Available' : 'Not Available' }}
+              <span
+                [ngClass]="{
+                  'badge bg-success': item.status === '1',
+                  'badge bg-danger': item.status === '0'
+                }"
+              >
+                {{ item.status === "1" ? "Available" : "Not Available" }}
               </span>
             </td>
             <td *ngIf="item.isEditing">
-              <select class="form-select form-select-sm" [(ngModel)]="item.editedStatus">
+              <select
+                class="form-select form-select-sm"
+                [(ngModel)]="item.editedStatus"
+              >
                 <option [value]="1">Available</option>
                 <option [value]="0">Not Available</option>
               </select>
             </td>
-            <td *ngIf="!item.isEditing">{{ item.category_name | capitalize }}</td>
+            <td *ngIf="!item.isEditing">
+              {{ item.category_name | capitalize }}
+            </td>
             <td *ngIf="item.isEditing">
-              <select class="form-select form-select-sm" [(ngModel)]="item.editedCategoryName">
-                <option *ngFor="let category of categories" [value]="category.category_name">
+              <select
+                class="form-select form-select-sm"
+                [(ngModel)]="item.editedCategoryName"
+              >
+                <option
+                  *ngFor="let category of categories"
+                  [value]="category.category_name"
+                >
                   {{ category.category_name }}
                 </option>
               </select>
             </td>
             <td *ngIf="!item.isEditing">{{ item.vendor_name | capitalize }}</td>
             <td *ngIf="item.isEditing">
-              <select class="form-select form-select-sm" [(ngModel)]="item.editedVendorName">
-                <option *ngFor="let vendor of vendors" [value]="vendor.vendor_name">
+              <select
+                class="form-select form-select-sm"
+                [(ngModel)]="item.editedVendorName"
+              >
+                <option
+                  *ngFor="let vendor of vendors"
+                  [value]="vendor.vendor_name"
+                >
                   {{ vendor.vendor_name }}
                 </option>
               </select>
             </td>
             <td *ngIf="!item.isEditing">{{ item.quantity_in_stock }}</td>
             <td *ngIf="item.isEditing">
-              <input class="form-control form-control-sm" type="number"  min="0" [(ngModel)]="item.editedQuantity"   />
+              <input
+                class="form-control form-control-sm"
+                type="number"
+                min="0"
+                [(ngModel)]="item.editedQuantity"
+              />
             </td>
-            <td *ngIf="!item.isEditing">{{ item.unit_price | currency:'INR'}}</td>
+            <td *ngIf="!item.isEditing">
+              {{ item.unit_price | currency : "INR" }}
+            </td>
             <td *ngIf="item.isEditing">
-              <input class="form-control form-control-sm" type="number"  min="0" [(ngModel)]="item.editedUnitPrice"/>
+              <input
+                class="form-control form-control-sm"
+                type="number"
+                min="0"
+                [(ngModel)]="item.editedUnitPrice"
+              />
             </td>
             <td class="actions-cell">
               <div class="btn-group">
-                <button *ngIf="item.isEditing" class="btn btn-sm btn-success" (click)="saveEdit(item)">
+                <button
+                  *ngIf="item.isEditing"
+                  class="btn btn-sm btn-success"
+                  (click)="saveEdit(item)"
+                >
                   <i class="bi bi-check-lg"></i>
                 </button>
-                <button *ngIf="item.isEditing" class="btn btn-sm btn-danger" (click)="cancelEdit(item)">
+                <button
+                  *ngIf="item.isEditing"
+                  class="btn btn-sm btn-danger"
+                  (click)="cancelEdit(item)"
+                >
                   <i class="bi bi-x-lg"></i>
                 </button>
-                <button *ngIf="!item.isEditing" class="btn btn-sm btn-outline-primary" (click)="toggleEdit(item)"><img src="assets/pencil-square.svg" alt="">
+                <button
+                  *ngIf="!item.isEditing"
+                  class="btn btn-sm btn-outline-primary"
+                  (click)="toggleEdit(item)"
+                >
+                  <img src="assets/pencil-square.svg" alt="" />
                 </button>
-                <button class="btn btn-sm btn-outline-danger" (click)="deleteItem(item)"> <img src="assets/trash.svg" alt="">
+                <button
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="deleteItem(item)"
+                >
+                  <img src="assets/trash.svg" alt="" />
                 </button>
-                <button class="btn btn-sm btn-outline-secondary" (click)="downloadItem(item)"><img src="assets/download.svg" alt="">
+                <button
+                  class="btn btn-sm btn-outline-secondary"
+                  (click)="downloadItem(item)"
+                >
+                  <img src="assets/download.svg" alt="" />
                 </button>
               </div>
             </td>
@@ -196,16 +294,23 @@
 
       <!-- Pagination -->
       <div class="pagination-controls">
-        <button class="btn btn-outline-primary" (click)="previousPage()" [disabled]="currentPage === 1">
+        <button
+          class="btn btn-outline-primary"
+          (click)="previousPage()"
+          [disabled]="currentPage === 1"
+        >
           <i class="bi bi-chevron-left"></i> Previous
         </button>
         <span class="page-info">{{ currentPage }} / {{ totalPages }}</span>
-        <button class="btn btn-outline-primary" (click)="nextPage()" [disabled]="currentPage === totalPages">
+        <button
+          class="btn btn-outline-primary"
+          (click)="nextPage()"
+          [disabled]="currentPage === totalPages"
+        >
           Next <i class="bi bi-chevron-right"></i>
         </button>
       </div>
     </div>
-
 
     <div class="table-responsive" *ngIf="viewMode === 'cart'">
       <table class="table table-hover">
@@ -226,14 +331,27 @@
             <td>{{ item.vendor_name }}</td>
             <td>
               <div class="quantity-controls">
-                <button class="btn btn-sm btn-outline-secondary" (click)="decreaseQuantity(item)">-</button>
+                <button
+                  class="btn btn-sm btn-outline-secondary"
+                  (click)="decreaseQuantity(item)"
+                >
+                  -
+                </button>
                 <span class="quantity">{{ item.quantity_in_stock }}</span>
-                <button class="btn btn-sm btn-outline-secondary" (click)="increaseQuantity(item)">+</button>
+                <button
+                  class="btn btn-sm btn-outline-secondary"
+                  (click)="increaseQuantity(item)"
+                >
+                  +
+                </button>
               </div>
             </td>
             <td>{{ item.unit_price | currency }}</td>
             <td>
-              <button class="btn btn-sm btn-outline-danger" (click)="removeFromCart(item)">
+              <button
+                class="btn btn-sm btn-outline-danger"
+                (click)="removeFromCart(item)"
+              >
                 <i class="bi bi-trash"></i>
               </button>
             </td>
@@ -243,49 +361,103 @@
     </div>
   </div>
 
-  <div class="modal" tabindex="-1" [ngClass]="{ 'show': showModal }" [style.display]="showModal ? 'block' : 'none'" (click)="closeModal()">
+  <div
+    class="modal"
+    tabindex="-1"
+    [ngClass]="{ show: showModal }"
+    [style.display]="showModal ? 'block' : 'none'"
+    (click)="closeModal()"
+  >
     <div class="modal-dialog" (click)="$event.stopPropagation()">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Add Product</h5>
-          <button type="button" class="btn-close" (click)="closeModal()"></button>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="closeModal()"
+          ></button>
         </div>
         <div class="modal-body">
           <form [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
               <label for="product_name" class="form-label">Product Name</label>
-              <input id="product_name" formControlName="product_name" class="form-control" placeholder="Enter product name" />
+              <input
+                id="product_name"
+                formControlName="product_name"
+                class="form-control"
+                placeholder="Enter product name"
+              />
             </div>
             <div class="mb-3">
               <label for="category_id" class="form-label">Category</label>
-              <select id="category_id" formControlName="category_name" class="form-control">
-                <option *ngFor="let category of categories" [value]="category.category_name">
+              <select
+                id="category_id"
+                formControlName="category_name"
+                class="form-control"
+              >
+                <option
+                  *ngFor="let category of categories"
+                  [value]="category.category_name"
+                >
                   {{ category.category_name }}
                 </option>
               </select>
             </div>
             <div class="mb-3">
               <label for="vendor_id" class="form-label">Vendor</label>
-              <select id="vendor_id" formControlName="vendor_name" class="form-control">
-                <option *ngFor="let vendor of vendors" [value]="vendor.vendor_name">
+              <select
+                id="vendor_id"
+                formControlName="vendor_name"
+                class="form-control"
+              >
+                <option
+                  *ngFor="let vendor of vendors"
+                  [value]="vendor.vendor_name"
+                >
                   {{ vendor.vendor_name }}
                 </option>
               </select>
             </div>
             <div class="mb-3">
-              <label for="quantity_in_stock" class="form-label">Quantity in Stock</label>
-              <input id="quantity_in_stock" formControlName="quantity_in_stock" type="number" class="form-control" placeholder="Enter quantity" />
+              <label for="quantity_in_stock" class="form-label"
+                >Quantity in Stock</label
+              >
+              <input
+                id="quantity_in_stock"
+                formControlName="quantity_in_stock"
+                type="number"
+                class="form-control"
+                placeholder="Enter quantity"
+              />
             </div>
             <div class="mb-3">
               <label for="unit_price" class="form-label">Unit Price</label>
-              <input id="unit_price" formControlName="unit_price" type="number" class="form-control" placeholder="Enter unit price" />
+              <input
+                id="unit_price"
+                formControlName="unit_price"
+                type="number"
+                class="form-control"
+                placeholder="Enter unit price"
+              />
             </div>
             <div class="mb-3">
-              <label for="product_image" class="form-label">Upload Product Image</label>
-              <input id="product_image" type="file" class="form-control" (change)="handleImageUpload($event)" />
+              <label for="product_image" class="form-label"
+                >Upload Product Image</label
+              >
+              <input
+                id="product_image"
+                type="file"
+                class="form-control"
+                (change)="handleImageUpload($event)"
+              />
             </div>
             <div class="text-end">
-              <button type="submit" class="btn btn-primary" [disabled]="addProductForm.invalid">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="addProductForm.invalid"
+              >
                 Add Product
               </button>
             </div>
@@ -316,16 +488,33 @@
           <td>{{ item.vendor_name }}</td>
           <td>{{ item.quantity_in_stock }}</td>
           <td>
-            <button class="cart-btn cart-btn-increase" (click)="incQuantity(item)">+</button>
-            <button class="cart-btn cart-btn-decrease" (click)="decQuantity(item)">-</button>
-            
+            <button
+              class="cart-btn cart-btn-increase"
+              (click)="incQuantity(item)"
+            >
+              +
+            </button>
+            <button
+              class="cart-btn cart-btn-decrease"
+              (click)="decQuantity(item)"
+            >
+              -
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
     <div class="cart-actions">
-      <button class="cart-btn cart-btn-cancel" (click)="closesModal()">Cancel</button>
-      <button class="cart-btn cart-btn-save" (click)="save(selectedItems)" data-bs-dismiss = "modal">Save</button>
+      <button class="cart-btn cart-btn-cancel" (click)="closesModal()">
+        Cancel
+      </button>
+      <button
+        class="cart-btn cart-btn-save"
+        (click)="save(selectedItems)"
+        data-bs-dismiss="modal"
+      >
+        Save
+      </button>
     </div>
   </div>
 </div>

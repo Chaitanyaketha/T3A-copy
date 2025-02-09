@@ -19,7 +19,7 @@ export class FileUploadComponent implements OnInit {
   modalFileContent: any = null;
   modalFileType: string | null = null;
 
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer) { }
+  constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     this.fetchUploadedFiles();
@@ -29,10 +29,11 @@ export class FileUploadComponent implements OnInit {
     this.fileInput.nativeElement.click();
   }
   deleteFile(fileName: string): void {
-    this.files = this.files.filter(file => file.name !== fileName);
-    this.selectedFileNames = this.selectedFileNames.filter(name => name !== fileName);
+    this.files = this.files.filter((file) => file.name !== fileName);
+    this.selectedFileNames = this.selectedFileNames.filter(
+      (name) => name !== fileName
+    );
   }
-  
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -43,14 +44,16 @@ export class FileUploadComponent implements OnInit {
   }
 
   fetchUploadedFiles(): void {
-    this.http.get<any[]>('http://localhost:4000/api/v1/user/files/files').subscribe(
-      (response) => {
-        this.files = response;
-      },
-      (error) => {
-        console.error('Error fetching files:', error);
-      }
-    );
+    this.http
+      .get<any[]>('http://localhost:4000/api/v1/user/files/files')
+      .subscribe(
+        (response) => {
+          this.files = response;
+        },
+        (error) => {
+          console.error('Error fetching files:', error);
+        }
+      );
   }
 
   uploadFile(): void {
@@ -117,7 +120,9 @@ export class FileUploadComponent implements OnInit {
       )
       .subscribe({
         next: (response) => {
-          const fileData = response.urls.find((file) => file.fileName === fileName);
+          const fileData = response.urls.find(
+            (file) => file.fileName === fileName
+          );
           if (!fileData) {
             console.error('File URL not found for:', fileName);
             alert('File URL not found');
@@ -130,7 +135,8 @@ export class FileUploadComponent implements OnInit {
           const imageUrl = parts[parts.length - 1]; // Assuming the last part is the image URL
 
           // Sanitize only the image URL
-          const sanitizedImageUrl = this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+          const sanitizedImageUrl =
+            this.sanitizer.bypassSecurityTrustUrl(imageUrl);
 
           // Fetch the file content (e.g., image, PDF) based on the URL
           this.http.get(fileData.url, { responseType: 'blob' }).subscribe({
@@ -143,7 +149,8 @@ export class FileUploadComponent implements OnInit {
                 fileReader.onload = () => {
                   const imageUrl = fileReader.result as string; // Data URL for the image
                   // Sanitize the image URL before using it
-                  this.modalFileContent = this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+                  this.modalFileContent =
+                    this.sanitizer.bypassSecurityTrustUrl(imageUrl);
                   this.showModal = true;
                 };
                 fileReader.readAsDataURL(fileBlob);
@@ -152,7 +159,8 @@ export class FileUploadComponent implements OnInit {
               // Handle PDF files
               else if (fileBlob.type === 'application/pdf') {
                 const pdfURL = URL.createObjectURL(fileBlob);
-                this.modalFileContent = this.sanitizer.bypassSecurityTrustResourceUrl(pdfURL);
+                this.modalFileContent =
+                  this.sanitizer.bypassSecurityTrustResourceUrl(pdfURL);
                 this.showModal = true;
               }
               // Handle text files
@@ -166,7 +174,8 @@ export class FileUploadComponent implements OnInit {
               }
               // Handle Excel files
               else if (
-                fileBlob.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                fileBlob.type ===
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
               ) {
                 const fileReader = new FileReader();
                 fileReader.onload = (e) => {
@@ -174,7 +183,9 @@ export class FileUploadComponent implements OnInit {
                   try {
                     const wb = XLSX.read(arrayBuffer, { type: 'array' });
                     const sheet = wb.Sheets[wb.SheetNames[0]];
-                    const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+                    const jsonData = XLSX.utils.sheet_to_json(sheet, {
+                      header: 1,
+                    });
                     this.modalFileContent = jsonData;
                     this.showModal = true;
                   } catch (error) {
@@ -201,8 +212,6 @@ export class FileUploadComponent implements OnInit {
       });
   }
 
-
-
   closeModal(): void {
     this.showModal = false;
     this.modalFileContent = null;
@@ -223,19 +232,21 @@ export class FileUploadComponent implements OnInit {
             const zip = new JSZip();
 
             response.urls.forEach((fileData) => {
-              this.http.get(fileData.url, { responseType: 'arraybuffer' }).subscribe({
-                next: (fileContent) => {
-                  zip.file(fileData.fileName, fileContent);
-                },
-                error: (err) => {
-                  console.error('Error downloading file:', err);
-                },
-                complete: () => {
-                  zip.generateAsync({ type: 'blob' }).then((content) => {
-                    FileSaver.saveAs(content, 'downloaded_files.zip');
-                  });
-                },
-              });
+              this.http
+                .get(fileData.url, { responseType: 'arraybuffer' })
+                .subscribe({
+                  next: (fileContent) => {
+                    zip.file(fileData.fileName, fileContent);
+                  },
+                  error: (err) => {
+                    console.error('Error downloading file:', err);
+                  },
+                  complete: () => {
+                    zip.generateAsync({ type: 'blob' }).then((content) => {
+                      FileSaver.saveAs(content, 'downloaded_files.zip');
+                    });
+                  },
+                });
             });
           },
           error: (err) => {

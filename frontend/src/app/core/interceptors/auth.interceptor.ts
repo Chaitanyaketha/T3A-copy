@@ -11,7 +11,6 @@
 // import { map } from 'rxjs/operators';
 // import { HttpClient } from '@angular/common/http';
 
-
 // @Injectable()
 // export class AuthInterceptor implements HttpInterceptor {
 
@@ -23,21 +22,17 @@
 //     });
 //   }
 //   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    
+
 //     if(request.url.includes('akv-interns'))
 //       return next.handle(request);
-    
+
 //      if(request.url.includes('files'))
 //         return next.handle(request);
-   
-    
-   
 
-    
 //     const token = sessionStorage.getItem('authToken');
 //     let headers = request.headers;
-   
-//     if (token) 
+
+//     if (token)
 //     {
 //       console.log(token);
 //       headers = headers.set('Authorization', `Bearer ${token}`);
@@ -55,10 +50,9 @@
 //     let encryptedBody = request.body;
 //     if (encryptedBody) {
 //       const encrypted = CryptoJS.AES.encrypt(JSON.stringify(encryptedBody), '19090').toString();
-//       encryptedBody = { encryptedData: encrypted }; 
+//       encryptedBody = { encryptedData: encrypted };
 //     }
 
-   
 //     const modifiedRequest = request.clone({
 //       headers,
 //       body: encryptedBody,
@@ -66,10 +60,9 @@
 
 //     console.log("Request Intercepted:", modifiedRequest);
 
-   
 //     return next.handle(modifiedRequest).pipe(
 //       map((event: HttpEvent<any>) => {
-  
+
 //         if (event instanceof HttpResponse) {
 //           if (event.body) {
 //             const decrypted = CryptoJS.AES.decrypt(event.body, '19090').toString(CryptoJS.enc.Utf8);
@@ -91,7 +84,7 @@ import {
   HttpEvent,
   HttpInterceptor,
   HttpResponse,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
@@ -101,18 +94,23 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-
   constructor(private http: HttpClient) {}
 
   private tokenEndpoint = 'http://localhost:4000/token';
 
-  refreshAccessToken(refreshToken: string): Observable<{ accessToken: string }> {
+  refreshAccessToken(
+    refreshToken: string
+  ): Observable<{ accessToken: string }> {
+    console.log('hieeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
     return this.http.post<{ accessToken: string }>(this.tokenEndpoint, {
       token: refreshToken,
     });
   }
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
     if (request.url.includes('akv-interns') || request.url.includes('files')) {
       return next.handle(request);
     }
@@ -126,9 +124,11 @@ export class AuthInterceptor implements HttpInterceptor {
 
     let encryptedBody = request.body;
     if (encryptedBody) {
-        
-      const encrypted = CryptoJS.AES.encrypt(JSON.stringify(encryptedBody), '19090').toString();
-      encryptedBody = { encryptedData: encrypted }; 
+      const encrypted = CryptoJS.AES.encrypt(
+        JSON.stringify(encryptedBody),
+        '19090'
+      ).toString();
+      encryptedBody = { encryptedData: encrypted };
     }
 
     const modifiedRequest = request.clone({
@@ -140,7 +140,10 @@ export class AuthInterceptor implements HttpInterceptor {
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
           if (event.body) {
-            const decrypted = CryptoJS.AES.decrypt(event.body, '19090').toString(CryptoJS.enc.Utf8);
+            const decrypted = CryptoJS.AES.decrypt(
+              event.body,
+              '19090'
+            ).toString(CryptoJS.enc.Utf8);
             if (decrypted) {
               const decryptedBody = JSON.parse(decrypted);
               return event.clone({ body: decryptedBody });
@@ -157,7 +160,10 @@ export class AuthInterceptor implements HttpInterceptor {
               switchMap((response) => {
                 const newAccessToken = response.accessToken;
                 const retryRequest = request.clone({
-                  headers: request.headers.set('Authorization', `Bearer ${newAccessToken}`),
+                  headers: request.headers.set(
+                    'Authorization',
+                    `Bearer ${newAccessToken}`
+                  ),
                 });
                 return next.handle(retryRequest);
               })
